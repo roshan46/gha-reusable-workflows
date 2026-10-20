@@ -1,0 +1,20 @@
+name: Build summary
+description: Write non-secret release metadata to the job summary
+inputs:
+  component:
+    description: Component name
+    required: true
+outputs:
+  revision:
+    description: Commit documented in the summary
+    value: ${{  steps.meta.outputs.revision  }}
+runs:
+  using: composite
+  steps:
+    - id: meta
+      shell: bash
+      env:
+        COMPONENT: ${{  inputs.component  }}
+      run: |
+        printf 'Component: %s; commit: %s\n' "$COMPONENT" "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
+        echo "revision=$GITHUB_SHA" >> "$GITHUB_OUTPUT"

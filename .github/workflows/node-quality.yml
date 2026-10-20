@@ -20,6 +20,11 @@ jobs:
     outputs:
       revision: ${{ steps.meta.outputs.revision }}
     steps:
+
+      - name: Shared workflow update test
+        run: echo "Shared quality workflow is active"
+
+
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false

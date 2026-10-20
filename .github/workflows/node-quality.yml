@@ -35,3 +35,11 @@ jobs:
         env:
           REVISION: ${{ github.sha }}
         run: echo "revision=$REVISION" >> "$GITHUB_OUTPUT"
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: node-coverage
+          path: coverage/
+          retention-days: 7
+          if-no-files-found: warn
